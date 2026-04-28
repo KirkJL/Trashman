@@ -312,3 +312,15 @@ input {
 #gameCanvas {
   height: 100dvh;
 }
+html, body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+#gameCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh; /* IMPORTANT */
+}
