@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Trash Collector</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; connect-src 'self' https://trashman.kirkjlemon.workers.dev; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests;"
+  >
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="app">
+    <section id="authPanel" class="panel auth-panel">
+      <h1>The Trash Collector</h1>
+      <p class="subtitle">Inspired by my online teammates.</p>
+
+      <label>
+        Username
+        <input id="usernameInput" maxlength="20" autocomplete="username">
+      </label>
+
+      <label>
+        Password
+        <input id="passwordInput" type="password" maxlength="72" autocomplete="current-password">
+      </label>
+
+      <div class="row">
+        <button id="loginBtn">Login</button>
+        <button id="registerBtn" class="secondary">Register</button>
+      </div>
+
+      <p id="authMessage" class="message"></p>
+    </section>
+
+    <section id="gameShell" class="hidden">
+      <canvas id="gameCanvas"></canvas>
+
+      <div id="hud" class="hud">
+        <div>Money: £<span id="moneyText">0</span></div>
+        <div>Rep: <span id="repText">0</span></div>
+        <div>Workers: <span id="workersText">1</span>/6</div>
+        <div>Van: <span id="capacityText">0</span>/<span id="capacityMaxText">10</span></div>
+      </div>
+
+      <div class="top-actions">
+        <button id="shopBtn">Shop</button>
+        <button id="saveBtn">Save</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="logoutBtn">Logout</button>
+      </div>
+
+      <div id="mobileControls" class="mobile-controls">
+        <div id="joystickBase" class="joystick-base">
+          <div id="joystickStick" class="joystick-stick"></div>
+        </div>
+        <button id="collectBtn" class="collect-btn">Collect</button>
+      </div>
+
+      <section id="shopPanel" class="panel side-panel hidden">
+        <h2>Shop</h2>
+        <button id="buyWorkerBtn">Hire Worker - £100</button>
+        <button id="vanCapacityBtn">Upgrade Capacity - £75</button>
+        <button id="vanSpeedBtn">Upgrade Speed - £90</button>
+        <button id="workerEffBtn">Worker Efficiency - £120</button>
+        <button id="repMultBtn">Reputation Multiplier - £150</button>
+        <button id="closeShopBtn" class="secondary">Close</button>
+      </section>
+
+      <section id="pausePanel" class="panel side-panel hidden">
+        <h2>Paused</h2>
+        <label class="checkbox">
+          <input id="soundToggle" type="checkbox" checked>
+          Sound enabled
+        </label>
+        <button id="resumeBtn">Resume</button>
+      </section>
+
+      <section id="leaderboardPanel" class="panel leaderboard">
+        <h2>Leaderboard</h2>
+        <ol id="leaderboardList"></ol>
+      </section>
+
+      <p id="gameMessage" class="toast"></p>
+    </section>
+  </main>
+
+  <script type="module" src="./api.js"></script>
+  <script type="module" src="./ui.js"></script>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
