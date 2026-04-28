@@ -1,0 +1,251 @@
+:root {
+  --bg: #080b0f;
+  --panel: rgba(14, 20, 28, 0.92);
+  --line: rgba(255,255,255,0.12);
+  --text: #f3f7fb;
+  --muted: #9aa7b2;
+  --good: #8cffc1;
+  --warn: #ffcf70;
+  --bad: #ff7676;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1c2a35, var(--bg) 55%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--line);
+  background: #1f8f5f;
+  color: white;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+button.secondary {
+  background: #26303b;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #0d1218;
+  color: var(--text);
+}
+
+label {
+  display: block;
+  margin: 12px 0;
+  color: var(--muted);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+}
+
+.auth-panel {
+  width: min(420px, calc(100vw - 28px));
+  padding: 26px;
+  border-radius: 22px;
+  margin: 12vh auto;
+}
+
+.auth-panel h1 {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row button {
+  flex: 1;
+}
+
+.message {
+  min-height: 22px;
+  color: var(--warn);
+}
+
+#gameShell,
+#gameCanvas {
+  width: 100vw;
+  height: 100vh;
+}
+
+#gameCanvas {
+  display: block;
+}
+
+.hud {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid var(--line);
+  font-weight: 800;
+}
+
+.top-actions {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.side-panel {
+  position: fixed;
+  right: 12px;
+  top: 78px;
+  width: min(320px, calc(100vw - 24px));
+  border-radius: 18px;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.side-panel h2 {
+  margin: 0 0 6px;
+}
+
+.leaderboard {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  width: min(320px, calc(100vw - 24px));
+  border-radius: 18px;
+  padding: 14px;
+  max-height: 240px;
+  overflow: auto;
+}
+
+.leaderboard h2 {
+  margin: 0 0 8px;
+}
+
+.leaderboard ol {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.65);
+  border: 1px solid var(--line);
+  color: var(--good);
+  min-height: 20px;
+  pointer-events: none;
+}
+
+.mobile-controls {
+  position: fixed;
+  inset: auto 0 24px 0;
+  display: none;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 24px;
+  pointer-events: none;
+}
+
+.joystick-base {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--line);
+  position: relative;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.joystick-stick {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(140,255,193,0.75);
+  position: absolute;
+  left: 31px;
+  top: 31px;
+}
+
+.collect-btn {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  pointer-events: auto;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox input {
+  width: auto;
+}
+
+@media (pointer: coarse) {
+  .mobile-controls {
+    display: flex;
+  }
+
+  .leaderboard {
+    display: none;
+  }
+
+  .top-actions {
+    max-width: 220px;
+  }
+
+  .top-actions button {
+    padding: 8px 10px;
+  }
+}
