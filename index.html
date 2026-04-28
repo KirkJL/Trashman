@@ -2,55 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>The Trash Collector</title>
+  <title>The Trash Collector ~ inspired by my online teammates..</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta
-    http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; connect-src 'self' https://trashman.kirkjlemon.workers.dev; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests;"
-  >
+
+  <!-- PWA / Fullscreen -->
+  <meta name="theme-color" content="#05070a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Trash Collector">
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- CSP -->
+  <meta http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      script-src 'self' https://cdn.jsdelivr.net;
+      style-src 'self';
+      img-src 'self' data:;
+      connect-src 'self' https://trashman.kirkjlemon.workers.dev;
+      object-src 'none';
+      base-uri 'none';
+      frame-ancestors 'none';
+      form-action 'self';
+    ">
+
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
+
+  <!-- 🔥 CINEMATIC BACKGROUND -->
+  <div class="bg-layer"></div>
+  <div class="noise-layer"></div>
+
   <main id="app">
-    <section id="authPanel" class="panel auth-panel">
-      <h1>The Trash Collector</h1>
-      <p class="subtitle">Inspired by my online teammates.</p>
 
-      <label>
-        Username
-        <input id="usernameInput" maxlength="20" autocomplete="username">
-      </label>
-
-      <label>
-        Password
-        <input id="passwordInput" type="password" maxlength="72" autocomplete="current-password">
-      </label>
-
-      <div class="row">
-        <button id="loginBtn">Login</button>
-        <button id="registerBtn" class="secondary">Register</button>
+    <!-- 🔐 AUTH SCREEN -->
+    <section id="authPanel" class="auth-panel">
+      <div class="logo">
+        <h1>The Trash Collector</h1>
+        <p>Inspired by my online teammates.</p>
       </div>
 
-      <p id="authMessage" class="message"></p>
+      <div class="form">
+        <label>
+          Username
+          <input id="usernameInput" maxlength="20" autocomplete="username">
+        </label>
+
+        <label>
+          Password
+          <input id="passwordInput" type="password" maxlength="72">
+        </label>
+
+        <div class="buttons">
+          <button id="loginBtn" class="primary">Deploy</button>
+          <button id="registerBtn" class="secondary">Enlist</button>
+        </div>
+
+        <p id="authMessage" class="message"></p>
+      </div>
     </section>
 
+    <!-- 🎮 GAME SHELL -->
     <section id="gameShell" class="hidden">
+
+      <!-- 3D CANVAS -->
       <canvas id="gameCanvas"></canvas>
 
+      <!-- HUD -->
       <div id="hud" class="hud">
-        <div>Money: £<span id="moneyText">0</span></div>
-        <div>Rep: <span id="repText">0</span></div>
-        <div>Workers: <span id="workersText">1</span>/6</div>
-        <div>Van: <span id="capacityText">0</span>/<span id="capacityMaxText">10</span></div>
+        <div>£<span id="moneyText">0</span></div>
+        <div>Rep <span id="repText">0</span></div>
+        <div>Workers <span id="workersText">1</span>/6</div>
+        <div><span id="capacityText">0</span>/<span id="capacityMaxText">10</span></div>
       </div>
 
+      <!-- ACTION BUTTONS -->
       <div class="top-actions">
         <button id="shopBtn">Shop</button>
         <button id="saveBtn">Save</button>
         <button id="pauseBtn">Pause</button>
-        <button id="logoutBtn">Logout</button>
+        <button id="logoutBtn">Exit</button>
       </div>
 
+      <!-- MOBILE CONTROLS -->
       <div id="mobileControls" class="mobile-controls">
         <div id="joystickBase" class="joystick-base">
           <div id="joystickStick" class="joystick-stick"></div>
@@ -58,36 +95,55 @@
         <button id="collectBtn" class="collect-btn">Collect</button>
       </div>
 
+      <!-- SHOP -->
       <section id="shopPanel" class="panel side-panel hidden">
-        <h2>Shop</h2>
-        <button id="buyWorkerBtn">Hire Worker - £100</button>
-        <button id="vanCapacityBtn">Upgrade Capacity - £75</button>
-        <button id="vanSpeedBtn">Upgrade Speed - £90</button>
-        <button id="workerEffBtn">Worker Efficiency - £120</button>
-        <button id="repMultBtn">Reputation Multiplier - £150</button>
+        <h2>Upgrades</h2>
+        <button id="buyWorkerBtn">Hire Worker (£100)</button>
+        <button id="vanCapacityBtn">Capacity (£75)</button>
+        <button id="vanSpeedBtn">Speed (£90)</button>
+        <button id="workerEffBtn">Worker AI (£120)</button>
+        <button id="repMultBtn">Reputation (£150)</button>
         <button id="closeShopBtn" class="secondary">Close</button>
       </section>
 
+      <!-- PAUSE -->
       <section id="pausePanel" class="panel side-panel hidden">
         <h2>Paused</h2>
         <label class="checkbox">
           <input id="soundToggle" type="checkbox" checked>
-          Sound enabled
+          Sound Enabled
         </label>
         <button id="resumeBtn">Resume</button>
       </section>
 
+      <!-- LEADERBOARD -->
       <section id="leaderboardPanel" class="panel leaderboard">
         <h2>Leaderboard</h2>
         <ol id="leaderboardList"></ol>
       </section>
 
+      <!-- TOAST -->
       <p id="gameMessage" class="toast"></p>
+
     </section>
+
   </main>
 
+  <!-- 🔧 SCRIPTS -->
   <script type="module" src="./api.js"></script>
   <script type="module" src="./ui.js"></script>
   <script type="module" src="./game.js"></script>
+
+  <!-- 🔥 MOBILE URL BAR HIDE -->
+  <script>
+    setTimeout(() => {
+      window.scrollTo(0, 1);
+    }, 100);
+
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock("landscape").catch(() => {});
+    }
+  </script>
+
 </body>
 </html>
